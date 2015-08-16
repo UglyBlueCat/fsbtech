@@ -1,3 +1,5 @@
+This project includes cocoapods libraries - please open fsbtech.xcworkspace.
+
 #FSB – iOS Developer Technical Task 2015
 
 This is a technical task for FSB Technology iOS Developer candidates. It requires the creation of a simple iOS app. The task should take no more than four hours. The use of 3rd party libraries (and dependency management) is accepted and encouraged. Use either Objective-C or Swift. Please submit your final project via GitHub, Bitbucket or simply email the compressed sources.
