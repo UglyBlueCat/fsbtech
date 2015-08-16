@@ -7,8 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "DataFetcher.h"
+
+// Set up the URL in a macro for now to avoid hard-coding it
+// In a real life scenario this would come from somewhere else
+#define BASE_URL @"http://fast-gorge.herokuapp.com/contacts"
 
 @interface AppDelegate ()
+
+@property DataFetcher* dataFetcher;
 
 @end
 
@@ -17,7 +24,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [MagicalRecord setupCoreDataStack];
+    [self setupDataFetcher];
     return YES;
+}
+
+- (void)setupDataFetcher {
+    self.dataFetcher = [[DataFetcher sharedInstance] initWithBaseURL:BASE_URL];
+    //TODO: Check internet connectivity
+    [self.dataFetcher fetchData];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -42,6 +57,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+    [MagicalRecord cleanUp];
 }
 
 #pragma mark - Core Data stack
