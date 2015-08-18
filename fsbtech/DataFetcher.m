@@ -55,23 +55,32 @@
 
 - (void)saveData:(NSData*)data {
     __autoreleasing NSError* error;
-    NSDictionary* contactData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    __block NSDictionary* contactData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     if (error) {
         // TODO possibly alert the user
         NSLog(@"%s Error converting JSON data: %@", __PRETTY_FUNCTION__, error.description);
     } else {
-        for (NSDictionary* contact in contactData) {
-            Contact* newContact = [Contact MR_createEntity];
-            newContact.first_name = contact[@"first_name"];
-            newContact.surname = contact[@"surname"];
-            newContact.address = contact[@"address"];
-            newContact.email = contact[@"email"];
-            newContact.id_code = [NSString stringWithFormat:@"%@", contact[@"id"]];
-            newContact.phone_number = [NSString stringWithFormat:@"%@", contact[@"phone_number"]];
-            newContact.createdAt = contact[@"createdAt"];
-            newContact.updatedAt = contact[@"updatedAt"];
-        }
-        // TODO SAVE!!!
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            for (NSDictionary* contact in contactData) {
+                if (![Contact MR_findFirstByAttribute:@"id_code" withValue:contact[@"id"] inContext:localContext]) {
+                    Contact* newContact = [Contact MR_createEntityInContext:localContext];
+                    newContact.first_name = contact[@"first_name"];
+                    newContact.surname = contact[@"surname"];
+                    newContact.address = contact[@"address"];
+                    newContact.email = contact[@"email"];
+                    newContact.id_code = [NSString stringWithFormat:@"%@", contact[@"id"]];
+                    newContact.phone_number = [NSString stringWithFormat:@"%@", contact[@"phone_number"]];
+                    newContact.createdAt = contact[@"createdAt"];
+                    newContact.updatedAt = contact[@"updatedAt"];
+                }
+            }
+        } completion:^(BOOL contextDidSave, NSError *error) {
+            if (contextDidSave) {
+                NSLog(@"%s [Contact MR_numberOfEntities]: %@", __PRETTY_FUNCTION__, [Contact MR_numberOfEntities]);
+            } else {
+                NSLog(@"%s Error saving: %@", __PRETTY_FUNCTION__, error.debugDescription);
+            }
+        }];
     }
 }
 

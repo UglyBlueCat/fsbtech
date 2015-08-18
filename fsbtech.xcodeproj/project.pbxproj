@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		004334661B810C6000B0872B /* YayCustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 004334641B810C6000B0872B /* YayCustomTableViewCell.m */; };
+		004334671B810C6000B0872B /* YayCustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 004334651B810C6000B0872B /* YayCustomTableViewCell.xib */; };
+		0043346A1B81222000B0872B /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004334691B81222000B0872B /* ContactViewController.m */; };
 		006096D51B80B07700B92C36 /* DataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 006096D41B80B07700B92C36 /* DataFetcher.m */; };
 		006096D81B80C1A100B92C36 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 006096D71B80C1A100B92C36 /* Contact.m */; };
 		0098791A1B8091BD00CADC97 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 009879191B8091BD00CADC97 /* main.m */; };
@@ -31,6 +34,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		004334631B810C6000B0872B /* YayCustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YayCustomTableViewCell.h; sourceTree = "<group>"; };
+		004334641B810C6000B0872B /* YayCustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YayCustomTableViewCell.m; sourceTree = "<group>"; };
+		004334651B810C6000B0872B /* YayCustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YayCustomTableViewCell.xib; sourceTree = "<group>"; };
+		004334681B81222000B0872B /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		004334691B81222000B0872B /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
 		006096D21B809B5800B92C36 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		006096D31B80B07700B92C36 /* DataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFetcher.h; sourceTree = "<group>"; };
 		006096D41B80B07700B92C36 /* DataFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFetcher.m; sourceTree = "<group>"; };
@@ -110,6 +118,11 @@
 				006096D31B80B07700B92C36 /* DataFetcher.h */,
 				006096D41B80B07700B92C36 /* DataFetcher.m */,
 				009879171B8091BD00CADC97 /* Supporting Files */,
+				004334631B810C6000B0872B /* YayCustomTableViewCell.h */,
+				004334641B810C6000B0872B /* YayCustomTableViewCell.m */,
+				004334651B810C6000B0872B /* YayCustomTableViewCell.xib */,
+				004334681B81222000B0872B /* ContactViewController.h */,
+				004334691B81222000B0872B /* ContactViewController.m */,
 			);
 			path = fsbtech;
 			sourceTree = "<group>";
@@ -240,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				004334671B810C6000B0872B /* YayCustomTableViewCell.xib in Resources */,
 				009879261B8091BD00CADC97 /* Main.storyboard in Resources */,
 				0098792B1B8091BD00CADC97 /* LaunchScreen.xib in Resources */,
 				009879281B8091BD00CADC97 /* Images.xcassets in Resources */,
@@ -294,9 +308,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0098791D1B8091BD00CADC97 /* AppDelegate.m in Sources */,
+				004334661B810C6000B0872B /* YayCustomTableViewCell.m in Sources */,
 				0098791A1B8091BD00CADC97 /* main.m in Sources */,
 				009879231B8091BD00CADC97 /* ViewController.m in Sources */,
 				006096D51B80B07700B92C36 /* DataFetcher.m in Sources */,
+				0043346A1B81222000B0872B /* ContactViewController.m in Sources */,
 				006096D81B80C1A100B92C36 /* Contact.m in Sources */,
 				009879201B8091BD00CADC97 /* fsbtech.xcdatamodeld in Sources */,
 			);
