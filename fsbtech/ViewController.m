@@ -26,18 +26,27 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.contacts = [Contact MR_findAll];
     [self configureTableView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableViewData) name:@"kDataDidFinishloading" object:nil];
 }
 
 - (void)configureTableView {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
+    
     NSString* reuseIdentifier = NSStringFromClass([YayCustomTableViewCell class]);;
     UINib* nib = [UINib nibWithNibName:reuseIdentifier bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier];
+    
     [self.tableView setBackgroundColor:[UIColor purpleColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
     [self.view addSubview:self.tableView];
+}
+
+- (void)reloadTableViewData {
+    self.contacts = [Contact MR_findAll];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,8 +87,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView* headerView = [UIView new];
-    CGRect headerViewFrame = CGRectMake(0, 0, self.view.bounds.size.width, 20);
-    [headerView setFrame:headerViewFrame];
     return headerView;
 }
 

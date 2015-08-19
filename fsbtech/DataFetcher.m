@@ -38,17 +38,14 @@
 }
 
 - (void)fetchData {
-    // TODO: Put this network access into a background block
     NSDictionary *parameters;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager GET:self.BaseURL parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             // TODO: Check data is JSON
              [self saveData:responseObject];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             // TODO possibly alert the user
              NSLog(@"%s Error fetching data: %@", __PRETTY_FUNCTION__, error.description);
          }];
 }
@@ -57,7 +54,6 @@
     __autoreleasing NSError* error;
     __block NSDictionary* contactData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     if (error) {
-        // TODO possibly alert the user
         NSLog(@"%s Error converting JSON data: %@", __PRETTY_FUNCTION__, error.description);
     } else {
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
@@ -76,7 +72,7 @@
             }
         } completion:^(BOOL contextDidSave, NSError *error) {
             if (contextDidSave) {
-                NSLog(@"%s [Contact MR_numberOfEntities]: %@", __PRETTY_FUNCTION__, [Contact MR_numberOfEntities]);
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"kDataDidFinishloading" object:nil];
             } else {
                 NSLog(@"%s Error saving: %@", __PRETTY_FUNCTION__, error.debugDescription);
             }
