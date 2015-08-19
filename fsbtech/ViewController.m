@@ -32,6 +32,9 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
+    NSString* reuseIdentifier = NSStringFromClass([YayCustomTableViewCell class]);;
+    UINib* nib = [UINib nibWithNibName:reuseIdentifier bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier];
     [self.tableView setBackgroundColor:[UIColor purpleColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:self.tableView];
@@ -45,9 +48,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     Contact* contact = self.contacts[indexPath.row];
-    NSString* reuseIdentifier = @"YayCustomTableViewCell";
-    UINib* nib = [UINib nibWithNibName:reuseIdentifier bundle:nil];
-    [tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier];
+    NSString* reuseIdentifier = NSStringFromClass([YayCustomTableViewCell class]);;
     YayCustomTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     NSString* fullName = [NSString stringWithFormat:@"%@ %@", contact.first_name, contact.surname];
     [cell.titleLabel setText:fullName];
