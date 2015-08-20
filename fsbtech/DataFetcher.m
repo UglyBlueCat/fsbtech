@@ -9,15 +9,8 @@
 #import "DataFetcher.h"
 #import "Contact.h"
 
-@interface DataFetcher ()
-
-@property NSString* BaseURL;
-
-@end
-
 @implementation DataFetcher
 
-// Set up the data fetcher as a singleton
 + (DataFetcher*)sharedInstance {
     static DataFetcher* _sharedInstance = nil;
     static dispatch_once_t oncePredicate;
@@ -27,24 +20,24 @@
     return _sharedInstance;
 }
 
-// Initialise the data fetcher with the base url, which will be used for all API requests
-// This assumes that only one API will be accessed, which is the case for now
-- (instancetype)initWithBaseURL:(NSString*)url {
-    self = [super init];
-    if (self) {
-        _BaseURL = url;
-    }
-    return self;
+- (void)downloadContactDataFromURL:(NSString*)url {
+    [self fetchDataFromURL:url withParameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self saveData:responseObject];
+    }];
 }
 
-- (void)fetchData {
-    NSDictionary *parameters;
+- (void)downloadImageFromURL:(NSString*)url
+                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success {
+    [self fetchDataFromURL:url withParameters:nil success:success];
+}
+
+- (void)fetchDataFromURL:(NSString*)url withParameters:(NSDictionary*)parameters
+                 success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:self.BaseURL parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             [self saveData:responseObject];
-         }
+    [manager GET:url
+      parameters:parameters
+         success:success
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"%s Error fetching data: %@", __PRETTY_FUNCTION__, error.description);
          }];

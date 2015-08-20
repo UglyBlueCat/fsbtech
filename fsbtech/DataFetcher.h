@@ -11,7 +11,8 @@
 @interface DataFetcher : NSObject
 
 + (DataFetcher*)sharedInstance;
-- (instancetype)initWithBaseURL:(NSString*)url;
-- (void)fetchData;
+- (void)downloadContactDataFromURL:(NSString*)url;
+- (void)downloadImageFromURL:(NSString*)url
+                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success;
 
 @end
